@@ -48,8 +48,47 @@ const search = () =>{
      temp_min.innerHTML =`${convertedResponse.main.temp_min}⁰C`
      icon.innerHTML =`${convertedResponse.weather[0].icon}`
      country.innerHTML =`${convertedResponse.data.sys.country}`
+
      document.getElementById('cityName').value = ""
         
     })
        
 } 
+
+// const current = () =>{
+//     navigator.geolocation.getCurrentPosition((endConvertedResponse) =>{
+//         console.log(endConvertedResponse);
+//     } )
+// }
+
+
+const current = () =>{
+    navigator.geolocation.getCurrentPosition((endConvertedResponse) =>{
+       
+        let lat = `${endConvertedResponse.coords.latitude}`
+        let lon = `${endConvertedResponse.coords.longitude}`
+        let endPoint = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=705303948810324980db093f63a51039&units=metric`
+       fetch(endPoint).then((convert => {
+        convert.json().then(cont =>{
+            console.log(cont);
+            let mySpeed =(cont.wind.speed)
+            let myGust =(cont.wind.gust)
+            let myWind =Math.round(Number(mySpeed+myGust))
+            temp.innerHTML =`${Math.round(cont.main.temp)}⁰C`
+            wind.innerHTML =`${myWind}km/h`
+            humidity.innerHTML =`${cont.main.humidity}%`
+            pressure.innerHTML =`${cont.main.pressure}mb`
+            feels.innerHTML =`${cont.main.feels_like}⁰C`
+            description.innerHTML =`${cont.weather[0].description}`
+            scription.innerHTML =`${cont.weather[0].description}`
+            des.innerHTML =`${cont.weather[0].main}`
+            desName.innerHTML =`${cont.name}`
+            temp_max.innerHTML =`${cont.main.temp_max}⁰C`
+            temp_min.innerHTML =`${cont.main.temp_min}⁰C`
+            country.innerHTML =`${cont.sys.country}`
+            icon.innerHTML = `<img src='http://openweathermap.org/img/w/${cont.weather[0].icon}.png' alt='weather img'/>`
+        })
+       }))
+    } )
+}
+
