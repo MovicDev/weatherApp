@@ -3,6 +3,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+html,body{
+  overflow-x: hidden;
+}
 body{
  background-image: url("pexels-asad-photo-maldives-1591375.jpg");
  background-position: center;
